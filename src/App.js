@@ -1,5 +1,7 @@
+import Dashboard from "./components/Dashboard";
+
 function App() {
-  return <main className="App">Admin dashboard</main>;
+  return <Dashboard />;
 }
 
 export default App;
