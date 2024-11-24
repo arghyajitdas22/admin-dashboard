@@ -1,7 +1,7 @@
 import { X } from "@phosphor-icons/react";
 import React from "react";
 
-const Modal = ({ title, children, handleSave, onClose, open }) => {
+const Modal = ({ title, children, onClose, open }) => {
   if (!open) return null;
   return (
     <article className="absolute z-30 bg-black bg-opacity-30 w-screen h-screen overflow-hidden">

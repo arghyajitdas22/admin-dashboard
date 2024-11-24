@@ -4,10 +4,13 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
 import useUser from "../../hooks/useUser";
 import toast from "react-hot-toast";
+import useEditUserModal from "../../hooks/useEditUserModal";
 
 const Row = ({ name, role, status, id }) => {
   const screen = useWindowSize();
   const deleteUser = useUser((state) => state.deleteUser);
+  const setUser = useEditUserModal((state) => state.setUser);
+  const open = useEditUserModal((state) => state.open);
 
   const handleDelete = () => {
     if (role.toLowerCase() === "super admin") {
@@ -15,6 +18,16 @@ const Row = ({ name, role, status, id }) => {
     } else {
       deleteUser(id);
       toast.success("User deleted successfully");
+    }
+  };
+
+  const handleEdit = () => {
+    if (role.toLowerCase() === "super admin") {
+      toast.error("Cannot edit super admin");
+    } else {
+      const user = { name, role, status, id };
+      setUser(user);
+      open();
     }
   };
   return (
@@ -49,6 +62,7 @@ const Row = ({ name, role, status, id }) => {
           size={20}
           weight="fill"
           className=" text-gray-500 hover:cursor-pointer"
+          onClick={handleEdit}
         />
       </div>
     </>

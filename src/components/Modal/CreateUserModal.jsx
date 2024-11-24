@@ -27,12 +27,7 @@ const CreateUserModal = () => {
     close();
   };
   return (
-    <Modal
-      title={"Create User"}
-      onClose={close}
-      open={isOpen}
-      handleSave={() => {}}
-    >
+    <Modal title={"Create User"} onClose={close} open={isOpen}>
       <form onSubmit={handleSubmit} className="">
         <div className="p-3 flex flex-col gap-4">
           {/* Name field */}

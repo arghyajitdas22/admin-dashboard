@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header/Header";
 import MainSection from "./MainSection/MainSection";
 import CreateUserModal from "./Modal/CreateUserModal";
+import EditUserModal from "./Modal/EditUserModal";
 import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
         toastOptions={{
           // Define default options
           className: "",
-          duration: 5000,
+          duration: 2000,
           style: {
             background: "#363636",
             color: "#fff",
@@ -22,6 +23,7 @@ const Dashboard = () => {
         }}
       />
       <CreateUserModal />
+      <EditUserModal />
       <Header />
       <MainSection />
     </>

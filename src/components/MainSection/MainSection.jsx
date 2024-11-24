@@ -26,6 +26,23 @@ const MainSection = () => {
     },
   ]);
 
+  const handlePermissionChange = (permission, index) => {
+    const updatedRoleArray = roleArray.map((role, i) => {
+      if (i === index) {
+        if (role.permissions.includes(permission)) {
+          return {
+            ...role,
+            permissions: role.permissions.filter((p) => p !== permission),
+          };
+        } else {
+          return { ...role, permissions: [...role.permissions, permission] };
+        }
+      }
+      return role;
+    });
+    setRoleArray(updatedRoleArray);
+  };
+
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [activeFilter, setActiveFilter] = useState("All");
   const handleFilter = (role) => {
@@ -97,6 +114,8 @@ const MainSection = () => {
               role={role.role}
               permissions={role.permissions}
               acn={role.acn}
+              handlePermissionChange={handlePermissionChange}
+              index={index}
             />
           ))}
         </section>
