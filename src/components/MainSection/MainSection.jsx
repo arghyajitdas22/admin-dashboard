@@ -1,36 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoleCard from "./RoleCard";
-import { Plus, UserCirclePlus } from "@phosphor-icons/react";
+import { UserCirclePlus } from "@phosphor-icons/react";
 import FilterBtn from "./FilterBtn";
 import Row from "./Row";
-import UserArray from "../../assets/users.json";
 import useCreateUserModal from "../../hooks/useCreateUserModal";
+import useUser from "../../hooks/useUser";
 
 const MainSection = () => {
-  const roleArray = [
+  const users = useUser((state) => state.users);
+  const [roleArray, setRoleArray] = useState([
     {
       role: "Super Admin",
       permissions: ["create", "read", "update", "delete"],
-      acn: "1",
+      acn: "0",
     },
     {
       role: "Admin",
       permissions: ["create", "read", "update"],
-      acn: "3",
+      acn: "0",
     },
     {
       role: "Member",
       permissions: ["create", "read"],
-      acn: "5",
+      acn: "0",
     },
-  ];
+  ]);
 
+  const [filteredUsers, setFilteredUsers] = useState(users);
   const [activeFilter, setActiveFilter] = useState("All");
   const handleFilter = (role) => {
     setActiveFilter(role);
   };
+  useEffect(() => {
+    if (activeFilter === "All") {
+      setFilteredUsers(users);
+    } else {
+      setFilteredUsers(
+        users.filter((user) => user.role === activeFilter.toLocaleLowerCase())
+      );
+    }
+  }, [activeFilter, users]);
 
   const open = useCreateUserModal((state) => state.open);
+
+  useEffect(() => {
+    let supAdmins = 0,
+      admins = 0,
+      members = 0;
+    users.forEach((user) => {
+      if (user.role.toLowerCase() === "super admin") supAdmins++;
+      if (user.role.toLowerCase() === "admin") admins++;
+      if (user.role.toLowerCase() === "member") members++;
+    });
+    const updatedRoleArray = roleArray.map((role) => {
+      if (role.role === "Super Admin") {
+        return { ...role, acn: supAdmins };
+      }
+      if (role.role === "Admin") {
+        return { ...role, acn: admins };
+      }
+      if (role.role === "Member") {
+        return { ...role, acn: members };
+      }
+      return role; // Default case (though it might not be necessary here)
+    });
+
+    setRoleArray(updatedRoleArray);
+  }, [users, roleArray]);
 
   return (
     <main className="w-full h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden py-5 px-2 md:px-3 lg:px-5 md:p-8 lg:p-10 flex flex-col gap-5 lg:gap-7 overflow-auto">
@@ -48,10 +84,10 @@ const MainSection = () => {
             </h3>
           </div>
 
-          <button className="flex items-center gap-2 text-blue-950 hover:scale-105 transition-all duration-300 ease-in-out">
+          {/* <button className="flex items-center gap-2 text-blue-950 hover:scale-105 transition-all duration-300 ease-in-out">
             <Plus size={24} weight="fill" className="rounded-full" />
             <span className="font-semibold whitespace-nowrap">Add Role</span>
-          </button>
+          </button> */}
         </div>
         <section className="flex flex-col md:flex-row gap-4 flex-wrap mt-4">
           {/* role card */}
@@ -89,7 +125,7 @@ const MainSection = () => {
         <div className="flex items-center pb-3 pt-7 border-b border-gray-400 gap-4 md:gap-6 xl:gap-8">
           <FilterBtn
             role="All"
-            number="12"
+            number={users.length}
             active={"All" === activeFilter}
             handleClick={() => handleFilter("All")}
           />
@@ -109,9 +145,10 @@ const MainSection = () => {
           <p className="role">Role</p>
           <p className="status">Status</p>
           <p className="actions">Actions</p>
-          {UserArray.map((user, index) => (
+          {filteredUsers.map((user) => (
             <Row
-              key={index}
+              key={user.id}
+              id={user.id}
               name={user.name}
               role={user.role}
               status={user.status}

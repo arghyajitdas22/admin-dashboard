@@ -2,9 +2,21 @@ import React from "react";
 import dp from "../../assets/dp.jpg";
 import useWindowSize from "../../hooks/useWindowSize";
 import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
+import useUser from "../../hooks/useUser";
+import toast from "react-hot-toast";
 
-const Row = ({ name, role, status }) => {
+const Row = ({ name, role, status, id }) => {
   const screen = useWindowSize();
+  const deleteUser = useUser((state) => state.deleteUser);
+
+  const handleDelete = () => {
+    if (role.toLowerCase() === "super admin") {
+      toast.error("Cannot delete super admin");
+    } else {
+      deleteUser(id);
+      toast.success("User deleted successfully");
+    }
+  };
   return (
     <>
       <p className="member">
@@ -31,6 +43,7 @@ const Row = ({ name, role, status }) => {
           size={20}
           weight="fill"
           className=" text-red-500 hover:cursor-pointer"
+          onClick={handleDelete}
         />
         <PencilSimple
           size={20}

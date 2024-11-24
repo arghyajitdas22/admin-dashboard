@@ -17,16 +17,16 @@ const Modal = ({ title, children, handleSave, onClose, open }) => {
           />
         </div>
         {/* modal body */}
-        <div className="w-full px-4 py-3">{children}</div>
+        {children}
         {/* modal footer */}
-        <div className="px-4 py-2 border-t border-gray-500 flex items-center justify-end">
+        {/* <div className="px-4 py-2 border-t border-gray-500 flex items-center justify-end">
           <button
             onClick={handleSave}
             className="block bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 transition-all duration-300 ease-in-out px-2"
           >
             Save
           </button>
-        </div>
+        </div> */}
       </section>
     </article>
   );

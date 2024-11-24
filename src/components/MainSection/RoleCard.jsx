@@ -1,5 +1,4 @@
 import React from "react";
-import dp from "../../assets/dp.jpg";
 
 const RoleCard = ({ role, permissions, acn }) => {
   const getPermissionColor = (permission) => {
@@ -22,7 +21,7 @@ const RoleCard = ({ role, permissions, acn }) => {
         <span className="text-sm font-medium">
           {acn} {acn > 1 ? "ACCOUNTS" : "ACCOUNT"}
         </span>
-        <div className="flex items-center -space-x-2">
+        {/* <div className="flex items-center -space-x-2">
           <img
             src={dp}
             alt="member-dp"
@@ -51,7 +50,7 @@ const RoleCard = ({ role, permissions, acn }) => {
             height={20}
             className=" rounded-full"
           />
-        </div>
+        </div> */}
       </div>
 
       <p className=" text-blue-900 text-lg font-semibold uppercase">{role}</p>
