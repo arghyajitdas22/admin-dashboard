@@ -1,5 +1,5 @@
 import React from "react";
-import dp from "../../assests/10bd2c405982347.6441842705878.jpg";
+import dp from "../../assets/dp.jpg";
 
 const RoleCard = ({ role, permissions, acn }) => {
   const getPermissionColor = (permission) => {

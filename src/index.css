@@ -4,6 +4,24 @@
 
 @layer base {
   html {
-    @apply bg-slate-50;
+    @apply bg-slate-50 w-screen h-screen overflow-hidden;
+  }
+}
+
+@layer components {
+  .member {
+    @apply flex items-center gap-2 font-semibold py-2 border-b border-gray-400 col-span-3 text-sm md:text-base;
+  }
+
+  .role {
+    @apply uppercase font-semibold py-2 border-b border-gray-400 col-span-2 text-sm md:text-base;
+  }
+
+  .status {
+    @apply py-2 border-b border-gray-400 col-span-2 font-semibold text-sm md:text-base capitalize;
+  }
+
+  .actions {
+    @apply py-2 border-b border-gray-400 col-span-2 font-semibold text-sm md:text-base flex items-center gap-2 md:gap-4;
   }
 }

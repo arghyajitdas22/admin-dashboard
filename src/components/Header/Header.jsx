@@ -5,7 +5,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 const Header = () => {
   const screenSize = useWindowSize();
   return (
-    <header className="w-full h-16 border-b border-gray-600 shadow-md flex items-center justify-between px-5">
+    <header className="w-full h-16 border-b border-gray-600 shadow-md flex items-center justify-between px-5 sticky top-0 bg-white">
       <div className="flex items-center gap-3">
         {/* logo */}
         <Speedometer size={36} weight="fill" color="#2563eb" />
